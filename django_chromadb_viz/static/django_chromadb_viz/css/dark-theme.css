@@ -1,0 +1,157 @@
+/* Dark theme for ChromaDB Visualization */
+
+/* Custom dark theme adjustments */
+[data-bs-theme="dark"] .navbar {
+    background-color: #1a1a1a !important;
+    border-bottom: 1px solid #333;
+}
+
+[data-bs-theme="dark"] .navbar-brand {
+    color: #fff !important;
+}
+
+[data-bs-theme="dark"] .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+[data-bs-theme="dark"] .navbar-nav .nav-link:hover {
+    color: #fff !important;
+}
+
+[data-bs-theme="dark"] footer {
+    background-color: #1a1a1a !important;
+    border-top: 1px solid #333;
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+[data-bs-theme="dark"] .text-muted {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Card styling in dark mode */
+[data-bs-theme="dark"] .card {
+    background-color: #2d2d2d !important;
+    border-color: #444 !important;
+}
+
+[data-bs-theme="dark"] .card-header {
+    background-color: #3a3a3a !important;
+    border-bottom-color: #444 !important;
+}
+
+/* Table styling in dark mode */
+[data-bs-theme="dark"] .table {
+    color: #fff !important;
+}
+
+[data-bs-theme="dark"] .table-striped > tbody > tr:nth-of-type(odd) > td,
+[data-bs-theme="dark"] .table-striped > tbody > tr:nth-of-type(odd) > th {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Form styling in dark mode */
+[data-bs-theme="dark"] .form-control {
+    background-color: #3a3a3a !important;
+    border-color: #555 !important;
+    color: #fff !important;
+}
+
+[data-bs-theme="dark"] .form-control:focus {
+    background-color: #3a3a3a !important;
+    border-color: #666 !important;
+    color: #fff !important;
+}
+
+[data-bs-theme="dark"] .form-select {
+    background-color: #3a3a3a !important;
+    border-color: #555 !important;
+    color: #fff !important;
+}
+
+/* Alert styling in dark mode */
+[data-bs-theme="dark"] .alert {
+    border-color: #444 !important;
+}
+
+/* Button variations */
+[data-bs-theme="dark"] .btn-outline-primary {
+    border-color: #6ea8fe !important;
+    color: #6ea8fe !important;
+}
+
+[data-bs-theme="dark"] .btn-outline-primary:hover {
+    background-color: #6ea8fe !important;
+    color: #000 !important;
+}
+
+/* Code blocks */
+[data-bs-theme="dark"] pre,
+[data-bs-theme="dark"] code {
+    background-color: #2d2d2d !important;
+    color: #f8f9fa !important;
+}
+
+/* Badge styling */
+[data-bs-theme="dark"] .badge {
+    background-color: #444 !important;
+    color: #fff !important;
+}
+
+/* Pagination */
+[data-bs-theme="dark"] .pagination .page-link {
+    background-color: #3a3a3a !important;
+    border-color: #555 !important;
+    color: #fff !important;
+}
+
+[data-bs-theme="dark"] .pagination .page-link:hover {
+    background-color: #4a4a4a !important;
+    color: #fff !important;
+}
+
+[data-bs-theme="dark"] .pagination .page-item.active .page-link {
+    background-color: #0d6efd !important;
+    border-color: #0d6efd !important;
+}
+
+/* Modal styling */
+[data-bs-theme="dark"] .modal-content {
+    background-color: #2d2d2d !important;
+    border-color: #444 !important;
+}
+
+[data-bs-theme="dark"] .modal-header {
+    border-bottom-color: #444 !important;
+}
+
+[data-bs-theme="dark"] .modal-footer {
+    border-top-color: #444 !important;
+}
+
+/* Dropdown styling */
+[data-bs-theme="dark"] .dropdown-menu {
+    background-color: #2d2d2d !important;
+    border-color: #444 !important;
+}
+
+[data-bs-theme="dark"] .dropdown-item {
+    color: #fff !important;
+}
+
+[data-bs-theme="dark"] .dropdown-item:hover {
+    background-color: #3a3a3a !important;
+    color: #fff !important;
+}
+
+/* Additional dark theme utilities */
+.bg-dark-custom {
+    background-color: #1a1a1a !important;
+}
+
+.text-dark-custom {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.border-dark-custom {
+    border-color: #333 !important;
+}
