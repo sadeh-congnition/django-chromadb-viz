@@ -1,0 +1,7 @@
+include README.md
+include LICENSE
+include pyproject.toml
+recursive-include django_chromadb_viz/templates *
+recursive-include django_chromadb_viz/static *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]

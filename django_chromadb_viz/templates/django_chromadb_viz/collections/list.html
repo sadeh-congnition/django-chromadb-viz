@@ -1,0 +1,72 @@
+{% extends "django_chromadb_viz/base.html" %}
+
+{% block title %}{{ title }} - ChromaDB Viz{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1><i class="bi bi-collection"></i> ChromaDB Collections</h1>
+        </div>
+    </div>
+</div>
+
+{% if collections %}
+    <div class="row">
+        {% for collection in collections %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">{{ collection.name }}</h5>
+                        <span class="badge bg-primary">{{ collection.count }} docs</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <strong>ID:</strong> <code>{{ collection.id }}</code><br>
+                            <strong>Documents:</strong> {{ collection.count }}
+                        </p>
+                        
+                        {% if collection.metadata %}
+                            <h6>Metadata:</h6>
+                            <div class="bg-light p-2 rounded">
+                                <pre class="mb-0 small">{{ collection.metadata|pprint }}</pre>
+                            </div>
+                        {% endif %}
+                        
+                        {% if collection.error %}
+                            <div class="alert alert-warning small">
+                                <i class="bi bi-exclamation-triangle"></i> {{ collection.error }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group w-100" role="group">
+                            <a href="{% url 'django_chromadb_viz:collection_detail' collection.name %}" 
+                               class="btn btn-outline-primary">
+                                <i class="bi bi-eye"></i> View
+                            </a>
+                            <button type="button" 
+                                    class="btn btn-outline-danger"
+                                    hx-delete="{% url 'django_chromadb_viz:delete_collection' collection.name %}"
+                                    hx-confirm="Are you sure you want to delete collection '{{ collection.name }}'? This action cannot be undone."
+                                    hx-target="closest .col-md-6">
+                                <i class="bi bi-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center py-5">
+                <i class="bi bi-database display-1 text-muted"></i>
+                <h3 class="mt-3">No Collections Found</h3>
+                <p class="text-muted">Your ChromaDB instance doesn't contain any collections yet.</p>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
