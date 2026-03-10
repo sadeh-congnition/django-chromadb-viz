@@ -18,3 +18,6 @@ CHROMADB_VIZ_MAX_CONTENT_LENGTH = 1000  # Truncate content display
 # Security settings
 CHROMADB_VIZ_ALLOW_DELETION = True  # Allow deletion of collections and documents
 CHROMADB_VIZ_ALLOW_MODIFICATION = True  # Allow modification of documents
+
+# Embedding settings
+CHROMADB_VIZ_EMBEDDING_FUNCTION = None  # Path to custom embedding function (e.g., 'myapp.embeddings.get_embeddings')

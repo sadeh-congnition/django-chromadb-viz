@@ -78,7 +78,36 @@ CHROMADB_VIZ_MAX_CONTENT_LENGTH = 1000  # Default: 1000
 # Security Settings
 CHROMADB_VIZ_ALLOW_DELETION = True  # Allow deletion of collections and documents
 CHROMADB_VIZ_ALLOW_MODIFICATION = True  # Allow modification of documents
+
+# Embedding Settings
+CHROMADB_VIZ_EMBEDDING_FUNCTION = 'myapp.embeddings.get_embeddings'  # Path to custom embedding function
 ```
+
+#### Custom Embedding Function
+
+You can configure a custom embedding function by setting `CHROMADB_VIZ_EMBEDDING_FUNCTION` to the path of your embedding function. The function should accept a list of text strings and return a list of embedding vectors.
+
+Example custom embedding function:
+
+```python
+# myapp/embeddings.py
+import numpy as np
+from sentence_transformers import SentenceTransformer
+
+def get_embeddings(texts):
+    """Generate embeddings for a list of texts."""
+    model = SentenceTransformer('all-MiniLM-L6-v2')
+    embeddings = model.encode(texts)
+    return embeddings.tolist()
+```
+
+Then configure it in your `settings.py`:
+
+```python
+CHROMADB_VIZ_EMBEDDING_FUNCTION = 'myapp.embeddings.get_embeddings'
+```
+
+If no custom embedding function is configured, the system will fall back to ChromaDB's default embedding function.
 
 ### 4. Run Migrations
 

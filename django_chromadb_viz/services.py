@@ -5,21 +5,55 @@ This module provides a high-level interface for interacting with ChromaDB
 instances, abstracting away the low-level ChromaDB client operations.
 """
 
-import json
+import importlib
 from typing import Dict, List, Optional, Any
 from pathlib import Path
 
 from django.conf import settings
 from loguru import logger
 
-try:
-    import chromadb
-    from chromadb.config import Settings
-    from chromadb.utils import embedding_functions
-except ImportError:
-    chromadb = None
-    Settings = None
-    embedding_functions = None
+import chromadb
+from chromadb.utils import embedding_functions
+
+
+def _get_embeddings(texts: List[str]) -> List[List[float]]:
+    """Get embeddings for texts using the configured embedding function.
+
+    Args:
+        texts: List of text strings to embed
+
+    Returns:
+        List of embedding vectors
+    """
+    embedding_function_path = getattr(settings, "CHROMADB_VIZ_EMBEDDING_FUNCTION", None)
+
+    if not embedding_function_path:
+        # Fall back to default ChromaDB embedding function
+        default_ef = embedding_functions.DefaultEmbeddingFunction()
+        return default_ef(texts)
+
+    try:
+        # Load the embedding function from the path
+        module_path, function_name = embedding_function_path.rsplit(".", 1)
+        module = importlib.import_module(module_path)
+        embedding_function = getattr(module, function_name)
+
+        # Call the function with the texts
+        embeddings = embedding_function(texts)
+        logger.info(
+            f"Generated embeddings for {len(texts)} texts using custom function"
+        )
+        return embeddings
+
+    except Exception as e:
+        logger.error(
+            f"Error loading custom embedding function {embedding_function_path}: {e}"
+        )
+        # Fall back to default embedding function
+        if embedding_functions is None:
+            raise ImportError("chromadb embedding_functions not available")
+        default_ef = embedding_functions.DefaultEmbeddingFunction()
+        return default_ef(texts)
 
 
 class ChromaDBService:
@@ -250,8 +284,12 @@ class ChromaDBService:
         """
         try:
             collection = self.get_collection(collection_name)
+
+            # Generate embeddings using the configured embedding function
+            embeddings = _get_embeddings([query])
+
             results = collection.query(
-                query_texts=[query],
+                query_embeddings=embeddings,
                 n_results=limit,
                 include=["metadatas", "documents", "distances"],
             )
